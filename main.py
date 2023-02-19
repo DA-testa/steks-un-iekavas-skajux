@@ -2,6 +2,7 @@
 
 from collections import namedtuple
 
+
 Bracket = namedtuple("Bracket", ["char", "position"])
 
 
@@ -13,12 +14,13 @@ def find_mismatch(text):
     opening_brackets_stack = []
     for i, next in enumerate(text):
         if next in "([{":
-            
-            opening_brackets_stack.append(Bracket(next,i+1))
+            # Process opening bracket
+            opening_brackets_stack.append(Bracket(next, i + 1))
+
         if next in ")]}":
-            
+            # Process closing bracket
             if not opening_brackets_stack or not are_matching(opening_brackets_stack[-1].char, next):
-                return i+1
+                return i + 1
             opening_brackets_stack.pop()
     if opening_brackets_stack:
         return opening_brackets_stack[0].position
@@ -26,10 +28,21 @@ def find_mismatch(text):
 
 
 def main():
-    text = input()
+    choice = input("Enter F to read from a file or I to input directly: ")
+    if choice == "F":
+        filename = input("Enter filename: ")
+        with open(filename, "r") as file:
+            text = file.read().strip()
+    elif choice == "I":
+        text = input("Enter brackets: ")
+    else:
+        print("Invalid choice")
+        return
+
     mismatch = find_mismatch(text)
-    
     print(mismatch)
 
 
-main()
+if __name__ == '__main__':
+    main()
+
