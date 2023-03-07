@@ -1,4 +1,4 @@
-# python3
+#Kristiāns Martiņjaks 221RDB223
 
 from collections import namedtuple
 
